@@ -27,8 +27,8 @@ contract GameEngineTest is BaseSetup {
 
     function test_farmLootMultiple() public {
         vm.prank(alice);
-        engine.farmLoot(5);
-        assertEq(engine.totalLoots(), 5);
+        engine.farmLoot(10);
+        assertEq(engine.totalLoots(), 10);
     }
 
     function test_farmLootZeroReverts() public {
@@ -45,8 +45,8 @@ contract GameEngineTest is BaseSetup {
 
     function test_farmLootPureSolidity() public {
         vm.prank(alice);
-        engine.farmLootPureSolidity(3);
-        assertEq(engine.totalLoots(), 3);
+        engine.farmLootPureSolidity(10);
+        assertEq(engine.totalLoots(), 10);
     }
 
     function test_pause() public {
