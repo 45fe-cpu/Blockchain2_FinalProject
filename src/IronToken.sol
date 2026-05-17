@@ -13,9 +13,7 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
  * Design Pattern: Access Control (Ownable) — only DAO-controlled owner can mint.
  */
 contract IronToken is ERC20, ERC20Permit, Ownable {
-    constructor(
-        address _initialOwner
-    ) ERC20("IronToken", "IRON") ERC20Permit("IronToken") Ownable(_initialOwner) {}
+    constructor(address _initialOwner) ERC20("IronToken", "IRON") ERC20Permit("IronToken") Ownable(_initialOwner) {}
 
     /// @notice Mint IRON tokens. Restricted to owner (Timelock / deployer initially).
     function mint(address to, uint256 amount) external onlyOwner {

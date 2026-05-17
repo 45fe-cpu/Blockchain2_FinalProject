@@ -16,9 +16,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
  * Design Pattern: Access Control (Ownable) — only owner can mint.
  */
 contract GovToken is ERC20, ERC20Permit, ERC20Votes, Ownable {
-    constructor(
-        address _initialOwner
-    ) ERC20("GovToken", "GOV") ERC20Permit("GovToken") Ownable(_initialOwner) {
+    constructor(address _initialOwner) ERC20("GovToken", "GOV") ERC20Permit("GovToken") Ownable(_initialOwner) {
         _mint(_initialOwner, 1_000_000 * 1e18);
     }
 

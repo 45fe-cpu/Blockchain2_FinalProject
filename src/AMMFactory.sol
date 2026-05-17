@@ -58,18 +58,15 @@ contract AMMFactory {
      * @param salt   Salt for CREATE2 deterministic deployment.
      * @return pool Address of the newly deployed AMM.
      */
-    function createPoolDeterministic(
-        address tokenA,
-        address tokenB,
-        bytes32 salt
-    ) external onlyOwner returns (address pool) {
+    function createPoolDeterministic(address tokenA, address tokenB, bytes32 salt)
+        external
+        onlyOwner
+        returns (address pool)
+    {
         require(tokenA != tokenB, "Identical tokens");
         require(getPool[tokenA][tokenB] == address(0), "Pool exists");
 
-        bytes memory bytecode = abi.encodePacked(
-            type(AMM).creationCode,
-            abi.encode(tokenA, tokenB)
-        );
+        bytes memory bytecode = abi.encodePacked(type(AMM).creationCode, abi.encode(tokenA, tokenB));
 
         assembly {
             pool := create2(0, add(bytecode, 0x20), mload(bytecode), salt)
@@ -90,18 +87,13 @@ contract AMMFactory {
      * @param salt   Salt used for CREATE2.
      * @return predicted The predicted address.
      */
-    function computePoolAddress(
-        address tokenA,
-        address tokenB,
-        bytes32 salt
-    ) external view returns (address predicted) {
-        bytes memory bytecode = abi.encodePacked(
-            type(AMM).creationCode,
-            abi.encode(tokenA, tokenB)
-        );
-        bytes32 hash = keccak256(
-            abi.encodePacked(bytes1(0xff), address(this), salt, keccak256(bytecode))
-        );
+    function computePoolAddress(address tokenA, address tokenB, bytes32 salt)
+        external
+        view
+        returns (address predicted)
+    {
+        bytes memory bytecode = abi.encodePacked(type(AMM).creationCode, abi.encode(tokenA, tokenB));
+        bytes32 hash = keccak256(abi.encodePacked(bytes1(0xff), address(this), salt, keccak256(bytecode)));
         predicted = address(uint160(uint256(hash)));
     }
 

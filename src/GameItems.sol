@@ -29,11 +29,10 @@ contract GameItems is ERC1155, Ownable {
     event ItemsMinted(address indexed to, uint256 id, uint256 amount);
     event SwordCrafted(address indexed crafter, uint256 feeCharged);
 
-    constructor(
-        address _initialOwner,
-        address _ironToken,
-        uint256 _craftingFee
-    ) ERC1155("ipfs://bafybeiajtewitjck7bp2gocveszzw4czdbtug7s6nmhear3skgpjsmjjau/{id}.json") Ownable(_initialOwner) {
+    constructor(address _initialOwner, address _ironToken, uint256 _craftingFee)
+        ERC1155("ipfs://bafybeiajtewitjck7bp2gocveszzw4czdbtug7s6nmhear3skgpjsmjjau/{id}.json")
+        Ownable(_initialOwner)
+    {
         ironToken = IERC20(_ironToken);
         craftingFee = _craftingFee;
     }

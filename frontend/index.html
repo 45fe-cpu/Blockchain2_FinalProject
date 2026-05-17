@@ -1,216 +1,364 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GameFi DAO Ecosystem</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <div id="app">
-        <!-- Background Elements -->
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="grid-bg"></div>
+      <!-- Background Elements -->
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="grid-bg"></div>
 
-        <!-- Header -->
-        <header class="glass-panel">
-            <div class="logo">
-                <span class="gradient-text">Aetheria</span> DAO
+      <!-- Header -->
+      <header class="glass-panel">
+        <div class="logo"><span class="gradient-text">Aetheria</span> DAO</div>
+        <div
+          class="wallet-info"
+          style="display: flex; align-items: center; gap: 15px"
+        >
+          <div
+            id="headerIronBalance"
+            style="font-weight: 600; color: var(--secondary); display: none"
+          >
+            0 IRON
+          </div>
+          <div id="networkStatus" class="status-indicator"></div>
+          <button id="connectWalletBtn" class="btn primary-btn glow-effect">
+            Connect Wallet
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main>
+        <!-- Navigation -->
+        <nav class="glass-panel sidebar">
+          <ul>
+            <li class="nav-item active" data-tab="dashboard">
+              <span class="icon">📊</span> Dashboard
+            </li>
+            <li class="nav-item" data-tab="inventory">
+              <span class="icon">🎒</span> Inventory
+            </li>
+            <li class="nav-item" data-tab="crafting">
+              <span class="icon">⚒️</span> Crafting
+            </li>
+            <li class="nav-item" data-tab="marketplace">
+              <span class="icon">🏪</span> Marketplace
+            </li>
+            <li class="nav-item" data-tab="vault">
+              <span class="icon">🏦</span> Iron Vault
+            </li>
+            <li class="nav-item" data-tab="governance">
+              <span class="icon">🏛️</span> Governance
+            </li>
+          </ul>
+          <div class="user-stats">
+            <div class="stat-row">
+              <span>IRON Balance:</span>
+              <span id="ironBalance" class="highlight">0.00</span>
             </div>
-            <div class="wallet-info" style="display: flex; align-items: center; gap: 15px;">
-                <div id="headerIronBalance" style="font-weight: 600; color: var(--secondary); display: none;">0 IRON</div>
-                <div id="networkStatus" class="status-indicator"></div>
-                <button id="connectWalletBtn" class="btn primary-btn glow-effect">Connect Wallet</button>
+            <div class="stat-row">
+              <span>GOV Balance:</span>
+              <span id="govBalance" class="highlight">0.00</span>
             </div>
-        </header>
+          </div>
+        </nav>
 
-        <!-- Main Content -->
-        <main>
-            <!-- Navigation -->
-            <nav class="glass-panel sidebar">
-                <ul>
-                    <li class="nav-item active" data-tab="dashboard">
-                        <span class="icon">📊</span> Dashboard
-                    </li>
-                    <li class="nav-item" data-tab="inventory">
-                        <span class="icon">🎒</span> Inventory
-                    </li>
-                    <li class="nav-item" data-tab="crafting">
-                        <span class="icon">⚒️</span> Crafting
-                    </li>
-                    <li class="nav-item" data-tab="marketplace">
-                        <span class="icon">🏪</span> Marketplace
-                    </li>
-                    <li class="nav-item" data-tab="vault">
-                        <span class="icon">🏦</span> Iron Vault
-                    </li>
-                    <li class="nav-item" data-tab="governance">
-                        <span class="icon">🏛️</span> Governance
-                    </li>
-                </ul>
-                <div class="user-stats">
-                    <div class="stat-row">
-                        <span>IRON Balance:</span>
-                        <span id="ironBalance" class="highlight">0.00</span>
-                    </div>
-                    <div class="stat-row">
-                        <span>GOV Balance:</span>
-                        <span id="govBalance" class="highlight">0.00</span>
-                    </div>
+        <!-- Content Area -->
+        <section class="content-area">
+          <!-- Dashboard Tab -->
+          <div id="dashboard" class="tab-content active glass-panel">
+            <h2 class="gradient-text">Welcome to Aetheria</h2>
+            <p class="subtitle">The fully decentralized GameFi ecosystem.</p>
+
+            <div class="cards-grid">
+              <div class="card glass-card">
+                <h3>Farm Loot</h3>
+                <p>
+                  Spend energy to farm items. Chance to drop Part A or Part B.
+                </p>
+                <div class="action-group">
+                  <input
+                    type="number"
+                    id="farmLoops"
+                    min="1"
+                    max="10"
+                    value="1"
+                    class="input-field"
+                  />
+                  <button id="farmBtn" class="btn primary-btn glow-effect">
+                    Farm Loot
+                  </button>
                 </div>
-            </nav>
-
-            <!-- Content Area -->
-            <section class="content-area">
-                
-                <!-- Dashboard Tab -->
-                <div id="dashboard" class="tab-content active glass-panel">
-                    <h2 class="gradient-text">Welcome to Aetheria</h2>
-                    <p class="subtitle">The fully decentralized GameFi ecosystem.</p>
-                    
-                    <div class="cards-grid">
-                        <div class="card glass-card">
-                            <h3>Farm Loot</h3>
-                            <p>Spend energy to farm items. Chance to drop Part A or Part B.</p>
-                            <div class="action-group">
-                                <input type="number" id="farmLoops" min="1" max="10" value="1" class="input-field">
-                                <button id="farmBtn" class="btn primary-btn glow-effect">Farm Loot</button>
-                            </div>
-                        </div>
-                        <div class="card glass-card">
-                            <h3>Quick Swap</h3>
-                            <p>Swap between GOV and IRON instantly using our AMM.</p>
-                            <div class="swap-interface">
-                                <select id="swapTokenIn" class="input-field">
-                                    <option value="GOV">GOV</option>
-                                    <option value="IRON">IRON</option>
-                                </select>
-                                <input type="number" id="swapAmount" placeholder="Amount" class="input-field">
-                                <button id="swapBtn" class="btn secondary-btn">Swap</button>
-                            </div>
-                        </div>
-                    </div>
+              </div>
+              <div class="card glass-card">
+                <h3>Quick Swap</h3>
+                <p>Swap between GOV and IRON instantly using our AMM.</p>
+                <div class="swap-interface">
+                  <select id="swapTokenIn" class="input-field">
+                    <option value="GOV">GOV</option>
+                    <option value="IRON">IRON</option>
+                  </select>
+                  <input
+                    type="number"
+                    id="swapAmount"
+                    placeholder="Amount"
+                    class="input-field"
+                  />
+                  <button id="swapBtn" class="btn secondary-btn">Swap</button>
                 </div>
+              </div>
+            </div>
+          </div>
 
-                <!-- Inventory Tab -->
-                <div id="inventory" class="tab-content glass-panel">
-                    <h2 class="gradient-text">Your Inventory</h2>
-                    <div id="inventoryContainer" class="inventory-grid">
-                        <!-- Dynamic items will be injected here by app.js -->
-                        <p style="grid-column: 1 / -1; text-align: center; color: var(--text-muted);">No items found. Go farm some loot!</p>
-                    </div>
+          <!-- Inventory Tab -->
+          <div id="inventory" class="tab-content glass-panel">
+            <h2 class="gradient-text">Your Inventory</h2>
+            <div id="inventoryContainer" class="inventory-grid">
+              <!-- Dynamic items will be injected here by app.js -->
+              <p
+                style="
+                  grid-column: 1 / -1;
+                  text-align: center;
+                  color: var(--text-muted);
+                "
+              >
+                No items found. Go farm some loot!
+              </p>
+            </div>
+          </div>
+
+          <!-- Crafting Tab -->
+          <div id="crafting" class="tab-content glass-panel">
+            <h2 class="gradient-text">Forge</h2>
+            <p class="subtitle">Combine your parts to craft legendary items.</p>
+            <div class="crafting-section glass-card mt-4">
+              <h3>Craft Legendary Sword</h3>
+              <p>Requires: 1x Part A, 1x Part B, 10 IRON</p>
+              <div style="display: flex; gap: 1rem; margin: 1.5rem 0">
+                <img
+                  src="https://ipfs.io/ipfs/bafkreiaheg5mug44s7yon5euap5yhrknsitotfvxpjnuimgs4hm3637ape"
+                  style="height: 50px"
+                />
+                +
+                <img
+                  src="https://ipfs.io/ipfs/bafkreidyhdg6v5oby5jutg5aka56se3iioxfh7u5rnip6minbd5girkl6u"
+                  style="height: 50px"
+                />
+                +
+                <span
+                  style="
+                    font-weight: bold;
+                    color: var(--secondary);
+                    align-self: center;
+                  "
+                  >10 IRON</span
+                >
+              </div>
+              <div class="action-group">
+                <button id="approveCraftBtn" class="btn secondary-btn">
+                  Approve IRON
+                </button>
+                <button
+                  id="craftBtn"
+                  class="btn primary-btn glow-effect"
+                  disabled
+                >
+                  Craft Sword
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Marketplace Tab -->
+          <div id="marketplace" class="tab-content glass-panel">
+            <h2 class="gradient-text">IRON Shop</h2>
+            <p class="subtitle">
+              Purchase IRON tokens directly via Chainlink Oracle pricing (1:1
+              with ETH).
+            </p>
+
+            <div class="card glass-card center-card">
+              <div class="action-group vertical">
+                <label
+                  for="buyIronAmount"
+                  style="color: var(--text-muted); font-size: 0.9em"
+                  >You Receive (IRON)</label
+                >
+                <input
+                  type="number"
+                  id="buyIronAmount"
+                  placeholder="0.0"
+                  class="input-field"
+                  style="font-size: 1.5em; padding: 1rem"
+                />
+
+                <div style="text-align: center; color: var(--primary)">⬇️</div>
+
+                <label
+                  for="payEthAmount"
+                  style="color: var(--text-muted); font-size: 0.9em"
+                  >You Pay (ETH)</label
+                >
+                <input
+                  type="number"
+                  id="payEthAmount"
+                  placeholder="0.0"
+                  class="input-field"
+                  disabled
+                  style="
+                    background: rgba(0, 0, 0, 0.5);
+                    font-size: 1.5em;
+                    padding: 1rem;
+                  "
+                />
+
+                <button
+                  id="buyIronBtn"
+                  class="btn primary-btn glow-effect mt-4"
+                >
+                  Swap
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vault Tab -->
+          <div id="vault" class="tab-content glass-panel">
+            <h2 class="gradient-text">Iron Vault (ERC4626)</h2>
+            <p class="subtitle">Stake your IRON tokens to earn yield.</p>
+
+            <div class="cards-grid">
+              <div class="card glass-card">
+                <h3>Deposit IRON</h3>
+                <p>Staked: <span id="stakedIron">0</span> vIRON</p>
+                <div class="action-group vertical">
+                  <input
+                    type="number"
+                    id="depositAmount"
+                    placeholder="IRON Amount"
+                    class="input-field"
+                  />
+                  <button id="approveVaultBtn" class="btn secondary-btn">
+                    Approve
+                  </button>
+                  <button
+                    id="depositVaultBtn"
+                    class="btn primary-btn glow-effect"
+                    disabled
+                  >
+                    Deposit
+                  </button>
                 </div>
-
-                <!-- Crafting Tab -->
-                <div id="crafting" class="tab-content glass-panel">
-                    <h2 class="gradient-text">Forge</h2>
-                    <p class="subtitle">Combine your parts to craft legendary items.</p>
-                    <div class="crafting-section glass-card mt-4">
-                        <h3>Craft Legendary Sword</h3>
-                        <p>Requires: 1x Part A, 1x Part B, 10 IRON</p>
-                        <div style="display: flex; gap: 1rem; margin: 1.5rem 0;">
-                            <img src="https://ipfs.io/ipfs/bafkreiaheg5mug44s7yon5euap5yhrknsitotfvxpjnuimgs4hm3637ape" style="height: 50px;"> +
-                            <img src="https://ipfs.io/ipfs/bafkreidyhdg6v5oby5jutg5aka56se3iioxfh7u5rnip6minbd5girkl6u" style="height: 50px;"> + 
-                            <span style="font-weight: bold; color: var(--secondary); align-self: center;">10 IRON</span>
-                        </div>
-                        <div class="action-group">
-                            <button id="approveCraftBtn" class="btn secondary-btn">Approve IRON</button>
-                            <button id="craftBtn" class="btn primary-btn glow-effect" disabled>Craft Sword</button>
-                        </div>
-                    </div>
+              </div>
+              <div class="card glass-card">
+                <h3>Withdraw IRON</h3>
+                <p>Total Assets: <span id="vaultTotalAssets">0</span> IRON</p>
+                <div class="action-group vertical">
+                  <input
+                    type="number"
+                    id="withdrawAmount"
+                    placeholder="Shares Amount"
+                    class="input-field"
+                  />
+                  <button id="withdrawVaultBtn" class="btn secondary-btn">
+                    Withdraw
+                  </button>
                 </div>
+              </div>
+            </div>
+          </div>
 
-                <!-- Marketplace Tab -->
-                <div id="marketplace" class="tab-content glass-panel">
-                    <h2 class="gradient-text">IRON Shop</h2>
-                    <p class="subtitle">Purchase IRON tokens directly via Chainlink Oracle pricing (1:1 with ETH).</p>
-                    
-                    <div class="card glass-card center-card">
-                        <div class="action-group vertical">
-                            <label for="buyIronAmount" style="color: var(--text-muted); font-size: 0.9em;">You Receive (IRON)</label>
-                            <input type="number" id="buyIronAmount" placeholder="0.0" class="input-field" style="font-size: 1.5em; padding: 1rem;">
-                            
-                            <div style="text-align: center; color: var(--primary);">⬇️</div>
+          <!-- Governance Tab -->
+          <div id="governance" class="tab-content glass-panel">
+            <h2 class="gradient-text">DAO Governance</h2>
+            <p class="subtitle">Shape the future of Aetheria.</p>
 
-                            <label for="payEthAmount" style="color: var(--text-muted); font-size: 0.9em;">You Pay (ETH)</label>
-                            <input type="number" id="payEthAmount" placeholder="0.0" class="input-field" disabled style="background: rgba(0,0,0,0.5); font-size: 1.5em; padding: 1rem;">
-                            
-                            <button id="buyIronBtn" class="btn primary-btn glow-effect mt-4">Swap</button>
-                        </div>
-                    </div>
-                </div>
+            <div class="card glass-card">
+              <h3>Delegate Voting Power</h3>
+              <p>
+                You must delegate your votes to yourself or another address
+                before voting.
+              </p>
+              <button id="delegateBtn" class="btn secondary-btn">
+                Delegate to Self
+              </button>
+              <p class="mt-2">
+                Voting Power: <span id="votingPower" class="highlight">0</span>
+              </p>
+            </div>
 
-                <!-- Vault Tab -->
-                <div id="vault" class="tab-content glass-panel">
-                    <h2 class="gradient-text">Iron Vault (ERC4626)</h2>
-                    <p class="subtitle">Stake your IRON tokens to earn yield.</p>
-                    
-                    <div class="cards-grid">
-                        <div class="card glass-card">
-                            <h3>Deposit IRON</h3>
-                            <p>Staked: <span id="stakedIron">0</span> vIRON</p>
-                            <div class="action-group vertical">
-                                <input type="number" id="depositAmount" placeholder="IRON Amount" class="input-field">
-                                <button id="approveVaultBtn" class="btn secondary-btn">Approve</button>
-                                <button id="depositVaultBtn" class="btn primary-btn glow-effect" disabled>Deposit</button>
-                            </div>
-                        </div>
-                        <div class="card glass-card">
-                            <h3>Withdraw IRON</h3>
-                            <p>Total Assets: <span id="vaultTotalAssets">0</span> IRON</p>
-                            <div class="action-group vertical">
-                                <input type="number" id="withdrawAmount" placeholder="Shares Amount" class="input-field">
-                                <button id="withdrawVaultBtn" class="btn secondary-btn">Withdraw</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="card glass-card mt-4">
+              <h3>Create Proposal</h3>
+              <p>
+                Propose a change to the Game Engine's Drop Chance (in basis
+                points, max 10000).
+              </p>
+              <div class="action-group">
+                <input
+                  type="number"
+                  id="proposalDropChance"
+                  placeholder="e.g. 5000 for 50%"
+                  class="input-field"
+                />
+                <button
+                  id="createProposalBtn"
+                  class="btn primary-btn glow-effect"
+                >
+                  Propose
+                </button>
+              </div>
+            </div>
 
-                <!-- Governance Tab -->
-                <div id="governance" class="tab-content glass-panel">
-                    <h2 class="gradient-text">DAO Governance</h2>
-                    <p class="subtitle">Shape the future of Aetheria.</p>
-                    
-                    <div class="card glass-card">
-                        <h3>Delegate Voting Power</h3>
-                        <p>You must delegate your votes to yourself or another address before voting.</p>
-                        <button id="delegateBtn" class="btn secondary-btn">Delegate to Self</button>
-                        <p class="mt-2">Voting Power: <span id="votingPower" class="highlight">0</span></p>
-                    </div>
-
-                    <div class="card glass-card mt-4">
-                        <h3>Create Proposal</h3>
-                        <p>Propose a change to the Game Engine's Drop Chance (in basis points, max 10000).</p>
-                        <div class="action-group">
-                            <input type="number" id="proposalDropChance" placeholder="e.g. 5000 for 50%" class="input-field">
-                            <button id="createProposalBtn" class="btn primary-btn glow-effect">Propose</button>
-                        </div>
-                    </div>
-
-                    <div class="proposals-list mt-4">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <h3>Active Proposals</h3>
-                            <button id="refreshProposalsBtn" class="btn secondary-btn" style="padding: 0.5rem 1rem;">Refresh</button>
-                        </div>
-                        <div id="proposalsContainer">
-                            <p style="text-align: center; color: var(--text-muted);">No proposals found.</p>
-                        </div>
-                    </div>
-                </div>
-
-            </section>
-        </main>
+            <div class="proposals-list mt-4">
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                "
+              >
+                <h3>Active Proposals</h3>
+                <button
+                  id="refreshProposalsBtn"
+                  class="btn secondary-btn"
+                  style="padding: 0.5rem 1rem"
+                >
+                  Refresh
+                </button>
+              </div>
+              <div id="proposalsContainer">
+                <p style="text-align: center; color: var(--text-muted)">
+                  No proposals found.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
 
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js" type="application/javascript"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"
+      type="application/javascript"
+    ></script>
     <script>
-        if (typeof ethers === 'undefined') {
-            alert('Ethers.js failed to load. Check your internet connection or adblocker.');
-        }
+      if (typeof ethers === "undefined") {
+        alert(
+          "Ethers.js failed to load. Check your internet connection or adblocker."
+        );
+      }
     </script>
     <script src="app.js"></script>
-</body>
+  </body>
 </html>

@@ -19,10 +19,7 @@ contract Timelock is TimelockController {
      * @param executors Array of addresses allowed to execute operations (anyone = address(0)).
      * @param admin     Optional admin; set to address(0) to renounce immediately.
      */
-    constructor(
-        uint256 minDelay,
-        address[] memory proposers,
-        address[] memory executors,
-        address admin
-    ) TimelockController(minDelay, proposers, executors, admin) {}
+    constructor(uint256 minDelay, address[] memory proposers, address[] memory executors, address admin)
+        TimelockController(minDelay, proposers, executors, admin)
+    {}
 }

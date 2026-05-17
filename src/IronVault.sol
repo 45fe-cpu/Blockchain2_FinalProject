@@ -22,14 +22,7 @@ contract IronVault is ERC4626, Ownable, ReentrancyGuard {
 
     event YieldAdded(uint256 amount);
 
-    constructor(
-        IERC20 _asset,
-        address _owner
-    )
-        ERC4626(_asset)
-        ERC20("Iron Vault Share", "vIRON")
-        Ownable(_owner)
-    {}
+    constructor(IERC20 _asset, address _owner) ERC4626(_asset) ERC20("Iron Vault Share", "vIRON") Ownable(_owner) {}
 
     /**
      * @notice Add yield to the vault (increases share value for all depositors).

@@ -73,7 +73,7 @@ contract DeployDAO is Script {
     function _deployDeFi(GovToken gov, IronToken iron, address dep) internal {
         IronVault v = new IronVault(IERC20(address(iron)), dep);
         AMM a = new AMM(address(gov), address(iron));
-        
+
         // Add initial liquidity to AMM so users can buy GOV
         gov.approve(address(a), 500_000 * 1e18);
         iron.approve(address(a), 500_000 * 1e18);

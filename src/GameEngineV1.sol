@@ -114,9 +114,7 @@ contract GameEngineV1 is
 
         for (uint256 i = 0; i < loops; i++) {
             // Pure Solidity random generation (more expensive than Yul)
-            uint256 rand = uint256(
-                keccak256(abi.encodePacked(block.prevrandao, msg.sender, nonce))
-            ) % 10000;
+            uint256 rand = uint256(keccak256(abi.encodePacked(block.prevrandao, msg.sender, nonce))) % 10000;
 
             nonce++;
             totalLoots++;

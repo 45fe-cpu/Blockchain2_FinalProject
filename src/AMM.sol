@@ -52,11 +52,7 @@ contract AMM is ERC20, ReentrancyGuard {
      * @return lpTokens Amount of LP tokens minted.
      * @dev First depositor sets the ratio. Subsequent deposits must match ratio.
      */
-    function addLiquidity(uint256 amountA, uint256 amountB)
-        external
-        nonReentrant
-        returns (uint256 lpTokens)
-    {
+    function addLiquidity(uint256 amountA, uint256 amountB) external nonReentrant returns (uint256 lpTokens) {
         require(amountA > 0 && amountB > 0, "Amounts must be > 0");
 
         if (totalSupply() == 0) {
@@ -88,11 +84,7 @@ contract AMM is ERC20, ReentrancyGuard {
      * @return amountA Amount of tokenA returned.
      * @return amountB Amount of tokenB returned.
      */
-    function removeLiquidity(uint256 lpTokens)
-        external
-        nonReentrant
-        returns (uint256 amountA, uint256 amountB)
-    {
+    function removeLiquidity(uint256 lpTokens) external nonReentrant returns (uint256 amountA, uint256 amountB) {
         require(lpTokens > 0, "LP must be > 0");
         require(balanceOf(msg.sender) >= lpTokens, "Insufficient LP");
 
@@ -123,21 +115,17 @@ contract AMM is ERC20, ReentrancyGuard {
      * @dev Uses constant product formula with 0.3% fee.
      *      k invariant: reserveA * reserveB never decreases after swap.
      */
-    function swap(
-        address tokenIn,
-        uint256 amountIn,
-        uint256 minAmountOut
-    ) external nonReentrant returns (uint256 amountOut) {
+    function swap(address tokenIn, uint256 amountIn, uint256 minAmountOut)
+        external
+        nonReentrant
+        returns (uint256 amountOut)
+    {
         require(amountIn > 0, "Amount must be > 0");
-        require(
-            tokenIn == address(tokenA) || tokenIn == address(tokenB),
-            "Invalid token"
-        );
+        require(tokenIn == address(tokenA) || tokenIn == address(tokenB), "Invalid token");
 
         bool isTokenA = tokenIn == address(tokenA);
-        (IERC20 inputToken, IERC20 outputToken, uint256 reserveIn, uint256 reserveOut) = isTokenA
-            ? (tokenA, tokenB, reserveA, reserveB)
-            : (tokenB, tokenA, reserveB, reserveA);
+        (IERC20 inputToken, IERC20 outputToken, uint256 reserveIn, uint256 reserveOut) =
+            isTokenA ? (tokenA, tokenB, reserveA, reserveB) : (tokenB, tokenA, reserveB, reserveA);
 
         // Apply 0.3% fee
         uint256 amountInWithFee = amountIn * (FEE_DENOMINATOR - FEE_NUMERATOR);
@@ -176,9 +164,7 @@ contract AMM is ERC20, ReentrancyGuard {
      */
     function getAmountOut(address tokenIn, uint256 amountIn) external view returns (uint256 amountOut) {
         bool isTokenA = tokenIn == address(tokenA);
-        (uint256 reserveIn, uint256 reserveOut) = isTokenA
-            ? (reserveA, reserveB)
-            : (reserveB, reserveA);
+        (uint256 reserveIn, uint256 reserveOut) = isTokenA ? (reserveA, reserveB) : (reserveB, reserveA);
 
         uint256 amountInWithFee = amountIn * (FEE_DENOMINATOR - FEE_NUMERATOR);
         amountOut = (amountInWithFee * reserveOut) / (reserveIn * FEE_DENOMINATOR + amountInWithFee);

@@ -29,15 +29,12 @@ contract MyGovernor is
     GovernorVotesQuorumFraction,
     GovernorTimelockControl
 {
-    constructor(
-        IVotes _token,
-        TimelockController _timelock
-    )
+    constructor(IVotes _token, TimelockController _timelock)
         Governor("MyGovernor")
         GovernorSettings(
-            1,      // votingDelay: 1 block
-            5,      // votingPeriod: 5 blocks
-            1e18    // proposalThreshold: 1 token (adjustable)
+            1, // votingDelay: 1 block
+            5, // votingPeriod: 5 blocks
+            1e18 // proposalThreshold: 1 token (adjustable)
         )
         GovernorVotes(_token)
         GovernorVotesQuorumFraction(4)
@@ -54,7 +51,9 @@ contract MyGovernor is
         return super.votingPeriod();
     }
 
-    function quorum(uint256 /* blockNumber */)
+    function quorum(
+        uint256 /* blockNumber */
+    )
         public
         view
         override(Governor, GovernorVotesQuorumFraction)
@@ -63,12 +62,7 @@ contract MyGovernor is
         return 40 * 1e18; // 40 GOV tokens
     }
 
-    function state(uint256 proposalId)
-        public
-        view
-        override(Governor, GovernorTimelockControl)
-        returns (ProposalState)
-    {
+    function state(uint256 proposalId) public view override(Governor, GovernorTimelockControl) returns (ProposalState) {
         return super.state(proposalId);
     }
 
