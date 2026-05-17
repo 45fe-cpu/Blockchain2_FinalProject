@@ -1,18 +1,16 @@
 name: CI
 
-permissions: {}
-
 on:
   push:
+    branches: ["main"]
   pull_request:
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
   check:
     name: Foundry project
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     steps:
       - uses: actions/checkout@v6
         with:
@@ -22,8 +20,19 @@ jobs:
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
 
-      - name: Show Forge version
-        run: forge --version
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Linting Tools
+        run: npm install -g solhint prettier
+
+      - name: Run Solhint
+        run: solhint "src/**/*.sol"
+
+      - name: Run Prettier for Frontend
+        run: prettier --check "frontend/**/*.{js,html,css}"
 
       - name: Run Forge fmt
         run: forge fmt --check
@@ -33,3 +42,19 @@ jobs:
 
       - name: Run Forge tests
         run: forge test -vvv
+
+      - name: Run Forge coverage
+        run: forge coverage
+
+  slither:
+    name: Slither Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Run Slither
+        uses: crytic/slither-action@v0.3.0
+        with:
+          fail-on: none
