@@ -1,0 +1,138 @@
+type Player @entity {
+  id: ID!
+  address: Bytes!
+  lootCount: BigInt!
+  craftCount: BigInt!
+  purchaseCount: BigInt!
+  swapCount: BigInt!
+  voteCount: BigInt!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+}
+
+type Item @entity {
+  id: ID!
+  itemId: BigInt!
+  totalMinted: BigInt!
+  holderCount: BigInt!
+  updatedAt: BigInt!
+}
+
+type ItemBalance @entity {
+  id: ID!
+  player: Player!
+  item: Item!
+  balance: BigInt!
+  updatedAt: BigInt!
+}
+
+type LootFarm @entity {
+  id: ID!
+  player: Player!
+  itemId: BigInt!
+  loops: BigInt!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  txHash: Bytes!
+}
+
+type Craft @entity {
+  id: ID!
+  crafter: Player!
+  feeCharged: BigInt!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  txHash: Bytes!
+}
+
+type Swap @entity {
+  id: ID!
+  user: Player!
+  tokenIn: Bytes!
+  amountIn: BigInt!
+  amountOut: BigInt!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  txHash: Bytes!
+}
+
+type LiquidityEvent @entity {
+  id: ID!
+  provider: Player!
+  action: String!
+  amountA: BigInt!
+  amountB: BigInt!
+  lpAmount: BigInt!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  txHash: Bytes!
+}
+
+type PoolCreation @entity {
+  id: ID!
+  tokenA: Bytes!
+  tokenB: Bytes!
+  pool: Bytes!
+  poolIndex: BigInt!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  txHash: Bytes!
+}
+
+type IronPurchase @entity {
+  id: ID!
+  buyer: Player!
+  ethSpent: BigInt!
+  ironReceived: BigInt!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  txHash: Bytes!
+}
+
+type VaultYield @entity {
+  id: ID!
+  amount: BigInt!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  txHash: Bytes!
+}
+
+type Proposal @entity {
+  id: ID!
+  proposalId: BigInt!
+  proposer: Player!
+  description: String!
+  voteStart: BigInt!
+  voteEnd: BigInt!
+  state: String!
+  forVotes: BigInt!
+  againstVotes: BigInt!
+  abstainVotes: BigInt!
+  createdAt: BigInt!
+  executedAt: BigInt
+  txHash: Bytes!
+}
+
+type VoteCastEvent @entity {
+  id: ID!
+  proposal: Proposal!
+  voter: Player!
+  support: Int!
+  weight: BigInt!
+  reason: String!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  txHash: Bytes!
+}
+
+type ProtocolConfigChange @entity {
+  id: ID!
+  contractName: String!
+  parameter: String!
+  oldValue: BigInt
+  newValue: BigInt
+  newAddress: Bytes
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  txHash: Bytes!
+}

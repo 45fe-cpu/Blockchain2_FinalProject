@@ -1,0 +1,5 @@
+[
+  {"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"buyer","type":"address"},{"indexed":false,"internalType":"uint256","name":"ethSpent","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"ironReceived","type":"uint256"}],"name":"IronPurchased","type":"event"},
+  {"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"newFeed","type":"address"}],"name":"PriceFeedUpdated","type":"event"},
+  {"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newPrice","type":"uint256"}],"name":"IronPriceUpdated","type":"event"}
+]

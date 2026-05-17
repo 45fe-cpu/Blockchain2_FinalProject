@@ -1,0 +1,3 @@
+[
+  {"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"YieldAdded","type":"event"}
+]
